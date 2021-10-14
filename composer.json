@@ -13,5 +13,7 @@
             "email": "pbreteche@dawan.fr"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/http-client": "^5.3"
+    }
 }
