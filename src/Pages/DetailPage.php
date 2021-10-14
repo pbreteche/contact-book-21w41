@@ -3,9 +3,12 @@
 namespace App\Pages;
 
 use App\Loaders\ContactLoader;
+use App\Traits\JsonResponseTrait;
 
 class DetailPage
 {
+    use JsonResponseTrait;
+
     public function __construct()
     {
         $this->contactLoader = new ContactLoader();
@@ -17,8 +20,6 @@ class DetailPage
 
         $contact = $this->contactLoader->loadById($id);
 
-        header('Content-type: application/json');
-
-        echo json_encode($contact);
+        $this->toJson($contact);
     }
 }
