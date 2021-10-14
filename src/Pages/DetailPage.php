@@ -20,6 +20,6 @@ class DetailPage
 
         $contact = $this->contactLoader->loadById($id);
 
-        $this->toJson($contact);
+        $this->toJson($contact->toArray());
     }
 }

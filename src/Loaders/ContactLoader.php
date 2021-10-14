@@ -3,6 +3,7 @@
 namespace App\Loaders;
 
 use App\Exception\DataNotFoundException;
+use App\Model\Contact;
 
 class ContactLoader
 {
@@ -41,6 +42,7 @@ class ContactLoader
     {
         $statement = $this->pdo->prepare('SELECT id, name, email FROM contact WHERE id=:id');
         $statement->bindValue(':id',  $id);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, Contact::class);
         $statement->execute();
 
         if (!$statement) {
