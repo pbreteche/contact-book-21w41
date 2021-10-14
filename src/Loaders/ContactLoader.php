@@ -94,4 +94,25 @@ class ContactLoader
 
         return $statement->fetchAll();
     }
+
+    public function demoTransaction()
+    {
+        $this->pdo->beginTransaction();
+
+        $statement = $this->pdo->prepare(
+            'INSERT INTO contact (name, email) VALUES (\'essai1\', \'email1\')'
+        );
+        $statement->execute();
+
+        $statement = $this->pdo->prepare(
+            'INSERT INTO contact (name, email) VALUES (\'essai2\', \'email2\')'
+        );
+        $statement->execute();
+
+        if (true) { // imaginons qu'il y aurait un vrai test
+            $this->pdo->rollback();
+        } else {
+            $this->pdo->commit();
+        }
+    }
 }
