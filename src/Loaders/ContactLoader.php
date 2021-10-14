@@ -17,20 +17,24 @@ class ContactLoader
             $config['username'],
             $config['password']
         );
+        // Activation de la gestion d'erreurs
+        // via le mécanisme d'exception
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
     }
 
     public function loadAll()
     {
-        $statement = $this->pdo->query('SELECT id, name, email FROM contact');
-
-        if (!$statement) {
+        try {
+            $statement = $this->pdo->query('SELECT id, name, email FROM contact');
+        } catch (\PDOException $exception) {
             return [
                 'status' => 'error',
                 'message' => $this->pdo->errorInfo(),
             ];
         }
 
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll();
     }
 
     public function loadById(int $id)
@@ -50,6 +54,6 @@ class ContactLoader
             throw new DataNotFoundException('Contact non trouvé');
         }
 
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        return $statement->fetch();
     }
 }
