@@ -82,4 +82,16 @@ class ContactLoader
 
         return $this->pdo->lastInsertId();
     }
+
+    public function search($name)
+    {
+
+        $statement = $this->pdo->prepare(
+            'SELECT id, name, email FROM contact WHERE name LIKE :pattern'
+        );
+        $statement->bindValue(':pattern', $name.'%');
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 }
