@@ -2,6 +2,8 @@
 
 namespace App\Loaders;
 
+use App\Exception\DataNotFoundException;
+
 class ContactLoader
 {
     private \PDO $pdo;
@@ -44,8 +46,8 @@ class ContactLoader
             ];
         }
 
-        if (1 !== $statement->rowCount()) {
-
+        if (0 === $statement->rowCount()) {
+            throw new DataNotFoundException('Contact non trouvé');
         }
 
         return $statement->fetch(\PDO::FETCH_ASSOC);
