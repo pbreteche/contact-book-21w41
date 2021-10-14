@@ -8,9 +8,19 @@ class Contact
     private string $name;
     private string $email;
 
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
     }
 
     public function getEmail(): string

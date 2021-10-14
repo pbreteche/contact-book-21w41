@@ -35,12 +35,24 @@ class ContactLoader
             ];
         }
 
+        /* Parcours des résultats avec une boucle
+        $result = [];
+        foreach ($statement as $row) {
+            $result[] = $row;
+        }
+
+        while($row = $statement->fetch()) {
+
+        }*/
+
         return $statement->fetchAll();
     }
 
     public function loadById(int $id)
     {
-        $statement = $this->pdo->prepare('SELECT id, name, email FROM contact WHERE id=:id');
+        $statement = $this->pdo->prepare(
+            'SELECT id, name, email FROM contact WHERE id=:id'
+        );
         $statement->bindValue(':id',  $id);
         $statement->setFetchMode(\PDO::FETCH_CLASS, Contact::class);
         $statement->execute();
@@ -57,5 +69,17 @@ class ContactLoader
         }
 
         return $statement->fetch();
+    }
+
+    public function save(Contact $contact)
+    {
+        $statement = $this->pdo->prepare(
+            'INSERT INTO contact (name, email) VALUES (:name, :email)'
+        );
+        $statement->bindValue(':name',  $contact->getName());
+        $statement->bindValue(':email',  $contact->getEmail());
+        $statement->execute();
+
+        return $this->pdo->lastInsertId();
     }
 }
