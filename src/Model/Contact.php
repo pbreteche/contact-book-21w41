@@ -8,6 +8,11 @@ class Contact
     private string $name;
     private string $email;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function setName(string $name)
     {
         $this->name = $name;

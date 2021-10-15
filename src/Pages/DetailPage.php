@@ -3,15 +3,14 @@
 namespace App\Pages;
 
 use App\Loaders\ContactLoader;
-use App\Traits\JsonResponseTrait;
+use App\TemplateEngine;
 
 class DetailPage
 {
-    use JsonResponseTrait;
-
     public function __construct()
     {
         $this->contactLoader = new ContactLoader();
+        $this->twig = TemplateEngine::getEnvironment();
     }
 
     public function show()
@@ -20,6 +19,8 @@ class DetailPage
 
         $contact = $this->contactLoader->loadById($id);
 
-        $this->toJson($contact->toArray());
+        echo $this->twig->render('detail.html.twig', [
+            'contact' => $contact,
+        ]);
     }
 }
