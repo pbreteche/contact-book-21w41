@@ -10,7 +10,7 @@
     <h1>Mon carnet d'adresse</h1>
     <ul>
     {% for contact in contacts %}
-        <li><a href="/{{ contact.id }}">{{contact.name }}</a></li>
+        <li><a href="/detail.php?id={{ contact.id }}">{{contact.name }}</a></li>
     {% endfor %}
     </ul>
 </body>

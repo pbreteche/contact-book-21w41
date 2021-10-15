@@ -4,8 +4,7 @@ namespace App\Pages;
 
 use App\Loaders\ContactLoader;
 use App\Traits\JsonResponseTrait;
-use Twig\Loader\FilesystemLoader;
-use Twig\Environment;
+use App\TemplateEngine;
 
 class HomePage
 {
@@ -14,10 +13,7 @@ class HomePage
     public function __construct()
     {
         $this->contactLoader = new ContactLoader();
-        $loader = new FilesystemLoader(__DIR__.'/../../templates');
-        $this->twig = new Environment($loader, [
-            'cache' => __DIR__.'/../../cache',
-        ]);
+        $this->twig = TemplateEngine::getEnvironment();
     }
 
     public function show()
