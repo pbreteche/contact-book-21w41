@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon carnet d'adresse</title>
+</head>
+<body>
+    <h1>Mon carnet d'adresse</h1>
+    <form>
+    <input type="search" name="name" value="{{ search_term }}">
+    <button> <strong>Envoyer</strong> votre recherche</button>
+    </form>
+    <ul>
+    {% for contact in contacts %}
+        <li><a href="/detail.php?id={{ contact.id }}">{{contact.name }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
